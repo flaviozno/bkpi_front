@@ -78,7 +78,7 @@ export default function RegisterForm() {
     }
     else {
       try {
-        response = await axios.post('http://127.0.0.1:8000/users', {
+        response = await axios.post('https://flavio-api-bkpi.herokuapp.com/users', {
           name: data.name,
           email: data.email,
           password: data.password,
