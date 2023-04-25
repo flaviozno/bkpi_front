@@ -31,7 +31,7 @@ export default function LoginPage() {
 
   const handleLogin = async (data) => {
     try {
-      const response = await axios.post('http://127.0.0.1:8000/login', {
+      const response = await axios.post('https://flavio-api-bkpi.herokuapp.com/login', {
         email: data.email,
         password: data.password
       })
