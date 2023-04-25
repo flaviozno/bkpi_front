@@ -12,7 +12,7 @@ export default {
        return await api.get('/foods')
     },
     checkFood: async function (data, email){
-        return await api.post('/checkFood', {
+        return await api'/checkFood', {
             food_data: data,
             user_email: email
         })
