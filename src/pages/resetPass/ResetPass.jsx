@@ -30,7 +30,7 @@ export default function ResetPass() {
   const { token } = useParams();
   const handleLogin = async (data) => {
     try {
-      let response = await axios.post('http://127.0.0.1:8000/reset-password', {
+      let response = await axios.post('https://flavio-api-bkpi.herokuapp.com/reset-password', {
         password: data.password,
         confirmPassword: data.confirmPassword,
         token: token
