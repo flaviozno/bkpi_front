@@ -4,10 +4,13 @@ import GlobalStyles from './styles/global.styles';
 import { useDispatch } from 'react-redux';
 import api from './services/Api'
 import { loadFoods } from './pages/redux/actions/foods';
+import { ToastContainer } from 'react-toastify'
+import { useSelector } from 'react-redux'
 
 function App() {
 
   const dispatch = useDispatch();
+  const user = useSelector(state => state.auth.isAuthenticated)
 
   const LoadFoods = async () => {
     const { data } = await api.getFoods()
@@ -15,12 +18,14 @@ function App() {
   }
 
   useEffect(() => {
-    LoadFoods()
-  }, [])
+    if(user)
+      LoadFoods()
+  }, [user])
 
   return (
     <>
       < GlobalStyles />
+      <ToastContainer />
       < Routes />
     </>
   );

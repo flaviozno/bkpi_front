@@ -27,7 +27,7 @@ export const checkLoggedIn = () => async (dispatch) => {
             access_token: token
         }
         try {
-            const response = await axios.post('https://flavio-api-bkpi.herokuapp.com/login/validate-token', data);
+            const response = await axios.post('http://127.0.0.1:8000/login/validate-token', data);
             if (response.data) {
                 const userData = {
                     user: {

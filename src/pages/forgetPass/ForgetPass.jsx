@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { z } from 'zod'
+import { useHistory } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import axios from 'axios'
-import { toast, ToastContainer } from 'react-toastify'
+import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import styled from 'styled-components';
 
@@ -13,11 +14,11 @@ const createUserFormSchema = z.object({
 })
 
 export default function ForgetPass() {
+  const history = useHistory();
   const {
     register,
     handleSubmit,
-    formState: { errors },
-    control } = useForm({
+    formState: { errors } } = useForm({
       mode: "onChanges",
       shouldFocusError: true,
       reValidateMode: "onChange",
@@ -52,13 +53,14 @@ export default function ForgetPass() {
         progress: undefined,
         theme: "light",
       });
+    } finally {
+      history.push('/')
     }
   }
 
 
   return (
     <Container>
-      <ToastContainer />
       <Title>Recovery Password</Title>
       <Form onSubmit={handleSubmit(handleLogin)}>
         <FormGroup>

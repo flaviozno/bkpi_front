@@ -5,7 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm, useFieldArray } from 'react-hook-form'
 import { supabase } from '../../lib/supabase'
 import axios from 'axios'
-import { toast, ToastContainer } from 'react-toastify'
+import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
@@ -106,7 +106,6 @@ export default function RegisterForm() {
 
   return (
     <Container>
-      <ToastContainer />
       <Title>Register</Title>
       <Form
         onSubmit={handleSubmit(createUser)}

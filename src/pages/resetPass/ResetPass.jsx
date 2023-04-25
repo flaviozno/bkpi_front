@@ -4,16 +4,14 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useParams, useHistory } from "react-router-dom";
 import { useForm } from 'react-hook-form'
 import axios from 'axios'
-import { toast, ToastContainer } from 'react-toastify'
+import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import styled from 'styled-components';
 
 const createUserFormSchema = z.object({
   password: z.string().min(6, '6 no mínimo!'),
   confirmPassword: z.string().min(6, '6 no mínimo!')
-}).refine((data) => {
-  return data.password === data.confirmPassword;
-}, "Passwords do not match!");
+}).refine((data) => data.password === data.confirmPassword, { message: "Passwords do not match!", path: ["data"]});
 
 
 export default function ResetPass() {
@@ -28,6 +26,7 @@ export default function ResetPass() {
     })
   const history = useHistory()
   const { token } = useParams();
+
   const handleLogin = async (data) => {
     try {
       let response = await axios.post('https://flavio-api-bkpi.herokuapp.com/reset-password', {
@@ -46,9 +45,10 @@ export default function ResetPass() {
           progress: undefined,
           theme: "light",
         })
+        history.push('/')
       }
     } catch (error) {
-      toast.error('Ocorreu um erro!', {
+      toast.error('Expired token!', {
         position: "top-center",
         autoClose: 5000,
         hideProgressBar: false,
@@ -58,15 +58,11 @@ export default function ResetPass() {
         progress: undefined,
         theme: "light",
       });
-    } finally {
-      history.push('/login')
     }
   }
 
-
   return (
     <Container>
-      <ToastContainer />
       <Title>Reset Password</Title>
       <Form onSubmit={handleSubmit(handleLogin)}>
         <FormGroup>
@@ -84,8 +80,8 @@ export default function ResetPass() {
             {...register("confirmPassword")}
           />
           {errors.confirmPassword && <ErrorMessage>{errors.confirmPassword.message}</ErrorMessage>}
+          {errors && <ErrorMessage>{errors.data?.message}</ErrorMessage>}
         </FormGroup>
-
         <ButtonWrapper>
           <Button type="submit">Reset</Button>
         </ButtonWrapper>

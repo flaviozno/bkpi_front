@@ -6,7 +6,7 @@ import { login } from '../redux/actions/user'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import axios from 'axios'
-import { toast, ToastContainer } from 'react-toastify'
+import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
@@ -46,10 +46,9 @@ export default function LoginPage() {
           access_token: response.data.access_token
         }
         dispatch(login(userData))
-        history.push('/')
       }
     } catch (error) {
-      toast.error(error.response.data.detail, {
+      toast.error('Something is wrong!', {
         position: "top-center",
         autoClose: 5000,
         hideProgressBar: false,
@@ -59,13 +58,13 @@ export default function LoginPage() {
         progress: undefined,
         theme: "light",
       })
+    } finally {
+      history.push('/')
     }
   }
 
-
   return (
     <Container>
-      <ToastContainer />
       <Title>Login</Title>
       <Form onSubmit={handleSubmit(handleLogin)}>
         <FormGroup>
