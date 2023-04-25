@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const api = axios.create({
-    baseURL: process.env.REACT_APP_API_URL,
+    baseURL: 'https://flavio-api-bkpi.herokuapp.com',
     headers: {
         'Content-Type': 'application/json'
       }
