@@ -26,7 +26,7 @@ export default function ForgetPass() {
 
   const handleLogin = async (data) => {
     try {
-      let response = await axios.post('http://127.0.0.1:8000/forgot-password', {
+      let response = await axios.post('https://flavio-api-bkpi.herokuapp.com/forgot-password', {
         email: data.email
       })
       if (response && response.data.message) {
